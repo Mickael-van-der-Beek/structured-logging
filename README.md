@@ -13,6 +13,7 @@ $ npm install Woorank/structured-logging
 ### structuredLogging.serializers
 
 An ```Object``` containing custom [Bunyan](https://github.com/trentm/node-bunyan) serializer functions associated to their name.
+
 Currently only ```req```, ```res``` and ```err``` serializers are available.
 
 ### structuredLogging.middleware
@@ -20,8 +21,8 @@ Currently only ```req```, ```res``` and ```err``` serializers are available.
 A ```Function``` returning an [Express.js](expressjs.com/en/4x/api.html) middleware.
 Two arguments can be passed:
 
-	- ```logger```, a [Bunyan](https://github.com/trentm/node-bunyan) logger instance
-	- ```options```, a ```Object``` with options that override the default ones
+* ```logger```, a [Bunyan](https://github.com/trentm/node-bunyan) logger instance
+* ```options```, a ```Object``` with options that override the default ones
 
 Currently only the ```event``` key is used.
 

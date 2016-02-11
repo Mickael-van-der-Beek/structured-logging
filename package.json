@@ -1,0 +1,39 @@
+{
+  "name": "structured-logging",
+  "version": "0.0.1",
+  "description": "Initialises a list of serializers used to format logger input.",
+  "keywords": [
+    "buyan",
+    "logger",
+    "logging",
+    "serializer"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha -R spec ./test",
+    "lint": "semistandard --verbose | snazzy"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "response-time": "~2.3.1",
+    "bunyan": "~1.6.0",
+    "uuid": "~2.0.1"
+  },
+  "devDependencies": {
+    "supertest": "~1.2.0",
+    "validator": "~4.8.0",
+    "express": "~4.13.4",
+    "bunyan": "~1.6.0",
+    "mocha": "~2.4.5",
+    "chai": "~3.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Woorank/structured-logging.git"
+  },
+  "author": "Mickael van der Beek (https://github.com/Mickael-van-der-Beek)",
+  "bugs": {
+    "url": "https://github.com/Woorank/structured-logging/issues"
+  },
+  "homepage": "https://github.com/Woorank/structured-logging"
+}

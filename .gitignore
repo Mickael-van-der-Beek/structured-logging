@@ -16,6 +16,3 @@ pids
 
 ### NPM dependency directory ###
 node_modules
-
-### Babel ###
-!/.babelrc

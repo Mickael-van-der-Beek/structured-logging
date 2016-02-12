@@ -21,7 +21,12 @@ describe('HTTP Request serializer', function () {
     var testHeaderValue = 'This is a test messgage';
     var testHeaderKey = 'X-Test'.toLowerCase();
     var statusCode = 204;
-    var hostname = '::ffff:127.0.0.1';
+    var loopback = [
+      '::ffff:127.0.0.1',
+      '127.0.0.1',
+      'localhost'
+    ];
+    var hostname = '127.0.0.1';
     var pathname = '/';
     var method = 'get';
     var port = 10000;
@@ -40,7 +45,7 @@ describe('HTTP Request serializer', function () {
       assert.equal(log.req.headers.host, hostname + ':' + port);
       assert.equal(log.req.headers[testHeaderKey], testHeaderValue);
 
-      assert.equal(log.req.remoteAddress, hostname);
+      assert.include(loopback, log.req.remoteAddress);
 
       assert.isNumber(log.req.remotePort);
       assert.notEqual(log.req.remotePort, port);

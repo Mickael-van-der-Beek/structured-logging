@@ -78,5 +78,26 @@ app.get('/', function (req, res) {
 app.listen(3000);
 ```
 
+## Metrics
+
+Helper function to provide lightweight metrics through logging:
+
+```js
+var structuredLogging = require('structured-logging');
+var logger = require('./logger');
+var metrics = structuredLogging.metrics(logger);
+
+metrics.record('someMetric', 5);
+// results in throttled logs with properties:
+// { event: 'app-metric', metric: 'someMetric', value: 5, samples: 1, min: 5, max: 5 }
+
+var getUser = metrics.measure('getUserTiming', function (id) {
+  return db.query(`SELECT * FROM users WHERE id = ${id}`);
+});
+getUser(5).then(console.log);
+// results in throttled logs with properties:
+// { event: 'app-metric', metric: 'getUserTiming', value: 1234, samples: 1, min: 1234, max: 1234 }
+```
+
 [circle-image]: https://circleci.com/gh/Woorank/structured-logging.svg
 [circle-url]: https://circleci.com/gh/Woorank/structured-logging

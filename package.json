@@ -10,24 +10,28 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha -R spec ./test",
+    "test": "npm run lint && npm run mocha",
+    "mocha": "mocha -R spec ./test",
     "lint": "semistandard --verbose | snazzy"
   },
   "license": "MIT",
   "dependencies": {
+    "bunyan": "~1.6.0",
+    "extend": "^3.0.0",
+    "lodash.throttle": "^4.0.0",
     "request-promise": "~2.0.0",
     "response-time": "~2.3.1",
-    "underscore": "~1.8.3",
-    "bunyan": "~1.6.0",
     "uuid": "~2.0.1"
   },
   "devDependencies": {
-    "supertest": "~1.2.0",
-    "validator": "~4.8.0",
+    "chai": "~3.5.0",
     "express": "~4.13.4",
-    "bunyan": "~1.6.0",
     "mocha": "~2.4.5",
-    "chai": "~3.5.0"
+    "semistandard": "^7.0.5",
+    "sinon": "^1.17.3",
+    "snazzy": "^2.0.1",
+    "supertest": "~1.2.0",
+    "validator": "~4.8.0"
   },
   "repository": {
     "type": "git",

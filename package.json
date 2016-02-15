@@ -24,11 +24,12 @@
     "uuid": "~2.0.1"
   },
   "devDependencies": {
-    "bunyan": "~1.6.0",
     "chai": "~3.5.0",
     "express": "~4.13.4",
     "mocha": "~2.4.5",
+    "semistandard": "^7.0.5",
     "sinon": "^1.17.3",
+    "snazzy": "^2.0.1",
     "supertest": "~1.2.0",
     "validator": "~4.8.0"
   },

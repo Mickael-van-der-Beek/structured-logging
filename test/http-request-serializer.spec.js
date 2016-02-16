@@ -7,6 +7,7 @@ var express = require('express');
 var assert = require('chai').assert;
 var bunyan = require('bunyan');
 var pgk = require('../package');
+var ip = require('ip');
 
 var structuredLogging = require('../lib/index');
 
@@ -21,12 +22,6 @@ describe('HTTP Request serializer', function () {
     var testHeaderValue = 'This is a test messgage';
     var testHeaderKey = 'X-Test'.toLowerCase();
     var statusCode = 204;
-    var loopback = [
-      '::ffff:127.0.0.1',
-      '127.0.0.1',
-      'localhost',
-      '::1'
-    ];
     var hostname = '127.0.0.1';
     var pathname = '/';
     var method = 'get';
@@ -46,7 +41,7 @@ describe('HTTP Request serializer', function () {
       assert.equal(log.req.headers.host, hostname + ':' + port);
       assert.equal(log.req.headers[testHeaderKey], testHeaderValue);
 
-      assert.include(loopback, log.req.remoteAddress);
+      assert.equal(ip.isLoopback(log.req.remoteAddress), true);
 
       assert.isNumber(log.req.remotePort);
       assert.notEqual(log.req.remotePort, port);

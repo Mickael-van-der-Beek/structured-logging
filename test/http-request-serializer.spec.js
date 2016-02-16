@@ -24,7 +24,8 @@ describe('HTTP Request serializer', function () {
     var loopback = [
       '::ffff:127.0.0.1',
       '127.0.0.1',
-      'localhost'
+      'localhost',
+      '::1'
     ];
     var hostname = '127.0.0.1';
     var pathname = '/';

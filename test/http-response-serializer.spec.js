@@ -25,7 +25,6 @@ describe('HTTP Response serializer', function () {
     var startTime = null;
     var eventName = 'test-event';
     var diffTime = null;
-    var hostname = '::ffff:127.0.0.1';
     var pathname = '/';
     var method = 'get';
     var port = 10000;
@@ -85,7 +84,7 @@ describe('HTTP Response serializer', function () {
         .end();
     });
 
-    server = app.listen(port, hostname, function (err) {
+    server = app.listen(port, function (err) {
       if (err) {
         return done(err);
       }

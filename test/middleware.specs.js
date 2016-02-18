@@ -22,7 +22,7 @@ describe('Express middleware', function () {
     }
   });
 
-  it('doesn\' error on undefined options', function (done) {
+  it('doesn\'t error on undefined options', function (done) {
     var app = express();
     var logger = bunyan.createLogger({ name: 'test', level: 'fatal' });
     app.use(structuredLogging.middleware(logger));

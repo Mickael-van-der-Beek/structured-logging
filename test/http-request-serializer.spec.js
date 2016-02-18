@@ -30,24 +30,27 @@ describe('HTTP Request serializer', function () {
     var validateRequestLog = function (log) {
       log = JSON.parse(log);
 
-      assert.isObject(log);
-      assert.isObject(log.req);
-      assert.isObject(log.req.headers);
+      try {
+        assert.isObject(log);
+        assert.isObject(log.req);
+        assert.isObject(log.req.headers);
 
-      assert.equal(log.req.url, pathname);
+        assert.equal(log.req.url, pathname);
 
-      assert.equal(log.req.method, method.toUpperCase());
+        assert.equal(log.req.method, method.toUpperCase());
 
-      assert.equal(log.req.headers.host, hostname + ':' + port);
-      assert.equal(log.req.headers[testHeaderKey], testHeaderValue);
+        assert.equal(log.req.headers.host, hostname + ':' + port);
+        assert.equal(log.req.headers[testHeaderKey], testHeaderValue);
 
-      assert.equal(ip.isLoopback(log.req.remoteAddress), true);
+        assert.equal(ip.isLoopback(log.req.remoteAddress), true);
 
-      assert.isNumber(log.req.remotePort);
-      assert.notEqual(log.req.remotePort, port);
-      assert.isAbove(log.req.remotePort, 0);
-      assert.isBelow(log.req.remotePort, Math.pow(2, 16) - 1);
-
+        assert.isNumber(log.req.remotePort);
+        assert.notEqual(log.req.remotePort, port);
+        assert.isAbove(log.req.remotePort, 0);
+        assert.isBelow(log.req.remotePort, Math.pow(2, 16) - 1);
+      } catch (e) {
+        return done(e);
+      }
       done();
     };
 

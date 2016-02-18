@@ -5,7 +5,7 @@ Initialises a list of serializers used to format logger input.
 ## Installation
 
 ```shell
-$ npm install Woorank/structured-logging
+$ npm install structured-logging
 ```
 
 ## API

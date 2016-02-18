@@ -68,13 +68,13 @@ describe('metrics', function () {
       metrics.record('aMetric', 7);
       clock.tick(1);
       metrics.record('aMetric', 11);
-      clock.tick(4995);
+      clock.tick(4900);
       assert.strictEqual(info.callCount, 1);
       var log = info.firstCall.args[0];
       assert.propertyVal(log, 'metric', 'aMetric');
       assert.propertyVal(log, 'value', 5);
       assert.propertyVal(log, 'samples', 1);
-      clock.tick(2);
+      clock.tick(200);
       assert.strictEqual(info.callCount, 2);
       log = info.secondCall.args[0];
       assert.propertyVal(log, 'metric', 'aMetric');

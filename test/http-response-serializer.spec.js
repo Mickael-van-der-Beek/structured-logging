@@ -31,21 +31,24 @@ describe('HTTP Response serializer', function () {
 
     var validateResponseLog = function (log) {
       log = JSON.parse(log);
+      try {
+        assert.isObject(log);
+        assert.isObject(log.res);
+        // assert.isObject(log.res.header);
 
-      assert.isObject(log);
-      assert.isObject(log.res);
-      // assert.isObject(log.res.header);
+        assert.equal(validator.isUUID(log.reqId, 4), true);
 
-      assert.equal(validator.isUUID(log.reqId, 4), true);
+        assert.equal(log.event, eventName);
 
-      assert.equal(log.event, eventName);
+        assert.equal(log.res.statusCode, statusCode);
 
-      assert.equal(log.res.statusCode, statusCode);
+        // assert.equal(log.res.header[testHeaderKey], testHeaderValue);
 
-      // assert.equal(log.res.header[testHeaderKey], testHeaderValue);
-
-      var responseTime = diffTime[0] * 1e3 + diffTime[1] * 1e-6;
-      assert.closeTo(log.responseTime, responseTime, responseTime * 2);
+        var responseTime = diffTime[0] * 1e3 + diffTime[1] * 1e-6;
+        assert.closeTo(log.responseTime, responseTime, responseTime * 2);
+      } catch (e) {
+        return done(e);
+      }
 
       done();
     };

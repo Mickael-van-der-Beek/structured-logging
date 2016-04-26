@@ -33,7 +33,7 @@ The header list contains all the standard HTTP headers as well as the most used 
 I also added the proposed x-woorank-* headers.
 The final list of headers we log will be drastically shorter since a lot of these are not interesting or non-standard / legacy.
 
-```json
+```javascript
 {
 	// Note: Unique identifier and primary key
 	"id": "string",
@@ -50,12 +50,14 @@ The final list of headers we log will be drastically shorter since a lot of thes
 	// Note: Information on the Docker container running
 	"container": {
 		"id": "string",
-		"name": "string",
+		// Note: Environement with which the application was launched with (i.e: test or prod not the NODE_ENV)
+		"env": "string",
+		"name": "string"
 	},
 	// Note: Information on the Docker image running
 	"image": {
 		"id": "string",
-		"name": "string",
+		"name": "string"
 	},
 	// Note: Process id (Starts at 1 then is increments in Docker I think)
 	"pid": "number",
@@ -69,9 +71,7 @@ The final list of headers we log will be drastically shorter since a lot of thes
 		// Note: CircleCI / Docker build number (passed by Dockerfile ENV variables)
 		"build": "string",
 		// Note: Docker command with which the application was launched with
-		"command": "string",
-		// Note: Environement with which the application was launched with (i.e: test or prod not the NODE_ENV)
-		"environement": "string",
+		"command": "string"
 	},
 
 	// Note: Log level of this message
@@ -99,7 +99,7 @@ The final list of headers we log will be drastically shorter since a lot of thes
 			"port": "number",
 			"pathname": "string",
 			"query": "string", // Note: We have the choice between a string or an object
-			"hash": "string",
+			"hash": "string"
 		},
 		"headers": {
 			// Note: General headers
@@ -259,7 +259,7 @@ The final list of headers we log will be drastically shorter since a lot of thes
 			"x-powered-by": "string",
 			"x-ua-compatible": "string",
 			"x-content-duration": "string",
-			"upgrade-insecure-requests": "string",
+			"upgrade-insecure-requests": "string"
 		},
 		"actualContentLength": "number",
 		"time": "number",

@@ -4,18 +4,25 @@
 
 var supertest = require('supertest');
 var express = require('express');
-var assert = require('chai').assert;
+var assert = require('assert');
 var bunyan = require('bunyan');
 var pgk = require('../package');
 var ip = require('ip');
 
-var structuredLogging = require('../lib/index');
+const serializers = require('../lib/serializers');
+const errorSerializer = serializers.error;
+const errorValidation = require('../lib/serializers/error/error-validation');
 
 describe('HTTP Request serializer', function () {
   var server = null;
 
   afterEach('close HTTP server', function (done) {
     server.close(done);
+  });
+
+  it('aliases `e`, `err` and `error` exist and are the same serializer', () => {
+    assert.strictEqual(errorSerializers.e, errorSerializers.err);
+    assert.strictEqual(errorSerializers.err, errorSerializers.error);
   });
 
   it('serializes request correctly', function (done) {

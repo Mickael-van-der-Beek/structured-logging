@@ -2,56 +2,98 @@
 
 'use strict';
 
-var requestErrors = require('request-promise/errors');
-var assert = require('chai').assert;
+const assert = require('assert');
+const requestErrors = require('request-promise/errors');
 
-var errorSerializer = require('../lib/serializers/error-serializer');
+const serializers = require('../lib/serializers');
+const errorSerializer = serializers.error;
+const errorValidation = require('../lib/serializers/error/error-validation');
 
-describe('Error serializer', function () {
-  it('doesn\'t fail if missing parameters', function () {
-    assert.doesNotThrow(function () {
+describe('Error serializer', () => {
+  it('aliases `e`, `err` and `error` exist and are the same serializer', () => {
+    assert.notStrictEqual(serializers.e, undefined);
+    assert.strictEqual(serializers.e, serializers.err);
+    assert.strictEqual(serializers.err, serializers.error);
+  });
+
+  it('doesn\'t fail if missing parameters', () => {
+    assert.doesNotThrow(() => {
       errorSerializer(null);
     });
   });
 
-  it('returns passed argument if not a valid error', function () {
-    assert.equal(errorSerializer(null), null);
+  it('returns passed argument if not a valid error', () => {
+    assert.strictEqual(
+      errorSerializer(null),
+      null
+    );
   });
 
-  it('serializes V8 native Error correctly', function () {
-    var errorType = 'TypeError';
-    var errorMessage = 'This is a test message';
-    var serializedError = errorSerializer(
+  it('strips attributes not declared in validation schema', () => {
+    const errorType = 'TypeError';
+    const errorMessage = 'This is a test message';
+    const undeclaredKey = 'undeclared';
+    const undeclaredValue = 'This key is not declared in the JSON schema';
+    const serializedError = errorSerializer(
       new (global[errorType])(errorMessage)
     );
 
-    assert.equal(serializedError.name, errorType);
-    assert.equal(serializedError.message, errorMessage);
-    assert.isAbove(serializedError.stack.length, 0);
+    serializedError[undeclaredKey] = undeclaredValue;
+
+    assert.strictEqual(
+      errorValidation(serializedError),
+      true
+    );
+
+    assert.strictEqual(undeclaredKey in serializedError, false);
   });
 
-  it('serializes request-promise RequestError correctly', function () {
-    var errorCause = 'This is a test cause';
-    var serializedError = errorSerializer(
+  it('serializes V8 native Error correctly', () => {
+    const errorType = 'TypeError';
+    const errorMessage = 'This is a test message';
+    const serializedError = errorSerializer(
+      new (global[errorType])(errorMessage)
+    );
+
+    assert.strictEqual(
+      errorValidation(serializedError),
+      true
+    );
+
+    assert.strictEqual(serializedError.name, errorType);
+    assert.strictEqual(serializedError.message, errorMessage);
+  });
+
+  it('serializes request-promise RequestError correctly', () => {
+    const errorCause = 'This is a test cause';
+    const serializedError = errorSerializer(
       new (requestErrors.RequestError)(errorCause)
     );
 
-    assert.equal(serializedError.name, 'RequestError');
-    assert.equal(serializedError.message, errorCause);
-    assert.equal(serializedError.cause, errorCause);
-    assert.isAbove(serializedError.stack.length, 0);
+    assert.strictEqual(
+      errorValidation(serializedError),
+      true
+    );
+
+    assert.strictEqual(serializedError.name, 'RequestError');
+    assert.strictEqual(serializedError.message, errorCause);
+    assert.strictEqual(serializedError.cause, errorCause);
   });
 
-  it('serializes request-promise StatusCodeError correctly', function () {
-    var errorMessage = 'This is a test message';
-    var statusCode = 428;
-    var serializedError = errorSerializer(
+  it('serializes request-promise StatusCodeError correctly', () => {
+    const errorMessage = 'This is a test message';
+    const statusCode = 428;
+    const serializedError = errorSerializer(
       new (requestErrors.StatusCodeError)(statusCode, errorMessage)
     );
 
-    assert.equal(serializedError.name, 'StatusCodeError');
-    assert.equal(serializedError.message, statusCode + ' - ' + errorMessage);
-    assert.equal(serializedError.statusCode, statusCode);
-    assert.isAbove(serializedError.stack.length, 0);
+    assert.strictEqual(
+      errorValidation(serializedError),
+      true
+    );
+
+    assert.strictEqual(serializedError.name, 'StatusCodeError');
+    assert.strictEqual(serializedError.message, `${statusCode} - "${errorMessage}"`);
+    assert.strictEqual(serializedError.statusCode, statusCode);
   });
 });

@@ -18,7 +18,7 @@
     "security": "snyk test .",
     "start": "node ./server.js",
     "test": "mocha --recursive test/",
-    "cover": "nyc mocha --recursive test/"
+    "cover": "nyc npm run test"
   },
   "dependencies": {
     "ajv": "~4.1.7",

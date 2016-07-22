@@ -5,17 +5,10 @@
 const assert = require('assert');
 const requestErrors = require('request-promise/errors');
 
-const serializers = require('../lib/serializers');
-const errorSerializer = serializers.error;
+const errorSerializer = require('../lib/serializers/error/error-serializer');
 const errorValidation = require('../lib/serializers/error/error-validation');
 
 describe('Error serializer', () => {
-  it('aliases `e`, `err` and `error` exist and are the same serializer', () => {
-    assert.notStrictEqual(serializers.e, undefined);
-    assert.strictEqual(serializers.e, serializers.err);
-    assert.strictEqual(serializers.err, serializers.error);
-  });
-
   it('doesn\'t fail if missing parameters', () => {
     assert.doesNotThrow(() => {
       errorSerializer(null);

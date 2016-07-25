@@ -4,6 +4,7 @@
 
 const assert = require('assert');
 const express = require('express');
+const querystring = require('querystring');
 const supertest = require('supertest');
 
 const httpRequestSerializer = require('../lib/objects/http-request').serializer;
@@ -38,7 +39,9 @@ describe('HTTP request serializer (server point of view)', () => {
     const hostname = '::ffff:127.0.0.1';
     const pathname = '/pathname';
     const method = 'GET';
-    const query = 'key=value';
+    const query = {
+      key: 'value'
+    };
     const port = 10000;
 
     const app = express();
@@ -78,10 +81,10 @@ describe('HTTP request serializer (server point of view)', () => {
           assert.strictEqual(serializedHttpServerRequest.remoteFamily, 'IPv6');
 
           assert.strictEqual(serializedHttpServerRequest.uri.protocol, 'http:');
-          // assert.strictEqual(serializedHttpServerRequest.uri.hostname, `${hostname}`);
-          // assert.strictEqual(serializedHttpServerRequest.uri.port, port);
+          assert.strictEqual(serializedHttpServerRequest.uri.hostname, `${hostname}`);
+          assert.strictEqual(serializedHttpServerRequest.uri.port, port);
           assert.strictEqual(serializedHttpServerRequest.uri.pathname, pathname);
-          assert.strictEqual(serializedHttpServerRequest.uri.query, query);
+          assert.strictEqual(serializedHttpServerRequest.uri.query, querystring.stringify(query));
           assert.strictEqual(serializedHttpServerRequest.uri.hash, null);
 
           assert.strictEqual(serializedHttpServerRequest.headers.host, `[${hostname}]:${port}`);

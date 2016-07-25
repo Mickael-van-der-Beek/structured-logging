@@ -4,6 +4,7 @@
 
 const assert = require('assert');
 const express = require('express');
+const querystring = require('querystring');
 const request = require('request-promise');
 const url = require('url');
 
@@ -73,9 +74,6 @@ describe('HTTP response serializer (client point of view)', () => {
       .then(
         res => {
           const serializedHttpClientResponse = httpResponseSerializer(res);
-
-          console.log('SERIALIZATION=', serializedHttpClientResponse.serializationError);
-          console.log('VALIDATION=', serializedHttpClientResponse.validationErrors);
 
           try {
             assert.strictEqual(serializedHttpClientResponse.hasSerializationError, false);

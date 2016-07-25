@@ -5,6 +5,7 @@
 const assert = require('assert');
 const bunyan = require('bunyan');
 const express = require('express');
+const querystring = require('querystring');
 const supertest = require('supertest');
 
 const httpResponseSerializer = require('../lib/objects/http-response').serializer;

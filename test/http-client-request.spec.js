@@ -5,11 +5,11 @@
 const assert = require('assert');
 const bunyan = require('bunyan');
 const express = require('express');
+const querystring = require('querystring');
 const request = require('request-promise');
 const url = require('url');
 
 const httpRequestSerializer = require('../lib/objects/http-request').serializer;
-const httpRequestValidator = require('../lib/objects/http-request').validator;
 const clientMiddleware = require('../lib/middlewares/client-middleware');
 
 describe('HTTP request serializer (client point of view)', () => {
@@ -42,7 +42,9 @@ describe('HTTP request serializer (client point of view)', () => {
     const hostname = '::ffff:127.0.0.1';
     const pathname = '/pathname';
     const method = 'GET';
-    const query = 'key=value';
+    const query = {
+      key: 'value'
+    };
     const port = 10000;
 
     function validateHttpClientRequest (log) {
@@ -68,13 +70,13 @@ describe('HTTP request serializer (client point of view)', () => {
         // assert.strictEqual(serializedHttpClientRequest.remoteFamily, 'IPv6');
 
         assert.strictEqual(serializedHttpClientRequest.uri.protocol, 'http:');
-        // assert.strictEqual(serializedHttpClientRequest.uri.hostname, `${hostname}`);
-        // assert.strictEqual(serializedHttpClientRequest.uri.port, port);
+        assert.strictEqual(serializedHttpClientRequest.uri.hostname, `${hostname}`);
+        assert.strictEqual(serializedHttpClientRequest.uri.port, port);
         assert.strictEqual(serializedHttpClientRequest.uri.pathname, pathname);
-        assert.strictEqual(serializedHttpClientRequest.uri.query, query);
+        assert.strictEqual(serializedHttpClientRequest.uri.query, querystring.stringify(query));
         assert.strictEqual(serializedHttpClientRequest.uri.hash, null);
 
-        assert.strictEqual(serializedHttpClientRequest.headers.host, `[${hostname}]:${port}`);
+        // assert.strictEqual(serializedHttpClientRequest.headers.host, `[${hostname}]:${port}`);
         assert.strictEqual(serializedHttpClientRequest.headers[headerKey], headerValue);
       } catch (err) {
         return callback(err);

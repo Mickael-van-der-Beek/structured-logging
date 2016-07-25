@@ -7,8 +7,7 @@ const express = require('express');
 const request = require('request-promise');
 const url = require('url');
 
-const httpResponseSerializer = require('../lib/serializers/http-response/http-response-serializer');
-const httpResponseValidation = require('../lib/serializers/http-response/http-response-validation');
+const httpResponseSerializer = require('../lib/objects/http-response').serializer;
 
 describe('HTTP response serializer (client point of view)', () => {
   var server = null;
@@ -75,19 +74,15 @@ describe('HTTP response serializer (client point of view)', () => {
         res => {
           const serializedHttpClientResponse = httpResponseSerializer(res);
 
-          const isValid = httpResponseValidation(
-            serializedHttpClientResponse,
-            {
-              v5: true,
-              verbose: true
-            }
-          );
+          console.log('SERIALIZATION=', serializedHttpClientResponse.serializationError);
+          console.log('VALIDATION=', serializedHttpClientResponse.validationErrors);
 
           try {
-            assert.strictEqual(
-              isValid,
-              true
-            );
+            assert.strictEqual(serializedHttpClientResponse.hasSerializationError, false);
+            assert.strictEqual(serializedHttpClientResponse.serializationError, null);
+
+            assert.strictEqual(serializedHttpClientResponse.hasValidationErrors, false);
+            assert.strictEqual(serializedHttpClientResponse.validationErrors, null);
 
             assert.strictEqual(serializedHttpClientResponse.status, statusCode);
 

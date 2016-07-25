@@ -7,8 +7,7 @@ const bunyan = require('bunyan');
 const express = require('express');
 const supertest = require('supertest');
 
-const httpResponseSerializer = require('../lib/serializers/http-response/http-response-serializer');
-const httpResponseValidation = require('../lib/serializers/http-response/http-response-validation');
+const httpResponseSerializer = require('../lib/objects/http-response').serializer;
 const serverMiddleware = require('../lib/middlewares').server;
 
 describe('HTTP response serializer (server point of view)', () => {
@@ -49,19 +48,12 @@ describe('HTTP response serializer (server point of view)', () => {
 
       const serializedHttpServerResponse = log.res;
 
-      const isValid = httpResponseValidation(
-        serializedHttpServerResponse,
-        {
-          v5: true,
-          verbose: true
-        }
-      );
-
       try {
-        assert.strictEqual(
-          isValid,
-          true
-        );
+        assert.strictEqual(serializedHttpServerResponse.hasSerializationError, false);
+        assert.strictEqual(serializedHttpServerResponse.serializationError, null);
+
+        assert.strictEqual(serializedHttpServerResponse.hasValidationErrors, false);
+        assert.strictEqual(serializedHttpServerResponse.validationErrors, null);
 
         assert.strictEqual(serializedHttpServerResponse.status, statusCode);
 

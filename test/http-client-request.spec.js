@@ -63,11 +63,14 @@ describe('HTTP request serializer (client point of view)', () => {
 
         assert.strictEqual(serializedHttpClientRequest.method, method);
 
-        // assert.strictEqual(serializedHttpClientRequest.httpVersionMajor, 1);
-        // assert.strictEqual(serializedHttpClientRequest.httpVersionMinor, 1);
+        assert.strictEqual(serializedHttpClientRequest.httpVersionMajor, 1);
+        assert.strictEqual(serializedHttpClientRequest.httpVersionMinor, 1);
 
         // assert.strictEqual(serializedHttpClientRequest.remoteAddresses[0], '::ffff:127.0.0.1');
         // assert.strictEqual(serializedHttpClientRequest.remoteFamily, 'IPv6');
+        // assert.strictEqual(typeof serializedHttpClientRequest.remotePort, 'number');
+        // assert.strictEqual(serializedHttpClientRequest.remotePort > 0, true);
+        // assert.strictEqual(serializedHttpClientRequest.remotePort < Math.pow(2, 16), true);
 
         assert.strictEqual(serializedHttpClientRequest.uri.protocol, 'http:');
         assert.strictEqual(serializedHttpClientRequest.uri.hostname, `${hostname}`);

@@ -4,7 +4,6 @@
 
 const assert = require('assert');
 const express = require('express');
-const querystring = require('querystring');
 const request = require('request-promise');
 const url = require('url');
 

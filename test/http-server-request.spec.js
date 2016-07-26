@@ -79,6 +79,9 @@ describe('HTTP request serializer (server point of view)', () => {
 
           assert.strictEqual(serializedHttpServerRequest.remoteAddresses[0], '::ffff:127.0.0.1');
           assert.strictEqual(serializedHttpServerRequest.remoteFamily, 'IPv6');
+          assert.strictEqual(typeof serializedHttpServerRequest.remotePort, 'number');
+          assert.strictEqual(serializedHttpServerRequest.remotePort > 0, true);
+          assert.strictEqual(serializedHttpServerRequest.remotePort < Math.pow(2, 16), true);
 
           assert.strictEqual(serializedHttpServerRequest.uri.protocol, 'http:');
           assert.strictEqual(serializedHttpServerRequest.uri.hostname, `${hostname}`);

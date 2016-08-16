@@ -1,5 +1,3 @@
-/* global global, describe, it, afterEach */
-
 'use strict';
 
 const assert = require('assert');
@@ -7,7 +5,7 @@ const express = require('express');
 const request = require('request-promise');
 const url = require('url');
 
-const httpResponseSerializer = require('../lib/objects/http-response').serializer;
+const httpResponseSerializer = require('../../lib/objects/http-response').serializer;
 
 describe('HTTP response serializer (client point of view)', () => {
   var server = null;

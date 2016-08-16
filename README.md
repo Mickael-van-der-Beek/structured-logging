@@ -19,7 +19,7 @@ Currently only ```HTTP request```, ```HTTP response```, ```Error``` and ```Conte
 Each object need to have these following files defines in it's folder:
 
   * ```OBJECT_NAME-serializer.js```, a function that maps / normalizes interesting properties from the input object to an output object
-  * ```OBJECT_NAME-validator.js```, an [AJV](https://github.com/epoberezkin/ajv) validator instance whith a JSON schema validation your output object
+  * ```OBJECT_NAME-validator.js```, an [AJV](https://github.com/epoberezkin/ajv) validator instance whith a JSON schema validating your output object
   * ```OBJECT_NAME-mappings.js```, an ElasticSearch mapping schema used to specify how each field will be stored, tokenized, analyzed, indexed and searched
   * ```OBJECT_NAME-dynamic-templates.js```: a list of ElasticSearch dynamic_templates which let you define mapping properties dynamicaly assing them to wildcard paths (e.g: ```context.*```)
   * ```OBJECT_NAME-analyzers.js```: a list of custom ElasticSearch analyzer definitions in case the mappings file needs non-standard analyzers

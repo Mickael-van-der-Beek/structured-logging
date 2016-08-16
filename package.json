@@ -17,7 +17,7 @@
     "lint": "semistandard --verbose | snazzy",
     "security": "snyk test .",
     "start": "node ./server.js",
-    "test": "mocha --recursive ./test",
+    "test": "mocha --recursive ./test/**/*.spec.js",
     "cover": "nyc npm run test"
   },
   "dependencies": {
@@ -50,5 +50,15 @@
   "bugs": {
     "url": "https://github.com/Woorank/structured-logging/issues"
   },
-  "homepage": "https://github.com/Woorank/structured-logging"
+  "homepage": "https://github.com/Woorank/structured-logging",
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
 }

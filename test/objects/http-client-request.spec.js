@@ -1,5 +1,3 @@
-/* global global, describe, it, afterEach */
-
 'use strict';
 
 const assert = require('assert');
@@ -9,8 +7,8 @@ const querystring = require('querystring');
 const request = require('request-promise');
 const url = require('url');
 
-const httpRequestSerializer = require('../lib/objects/http-request').serializer;
-const clientMiddleware = require('../lib/middlewares/client-middleware');
+const httpRequestSerializer = require('../../lib/objects/http-request').serializer;
+const clientMiddleware = require('../../lib/middlewares/client-middleware');
 
 describe('HTTP request serializer (client point of view)', () => {
   var server = null;

@@ -1,5 +1,3 @@
-/* global global, describe, it, afterEach */
-
 'use strict';
 
 const assert = require('assert');
@@ -7,8 +5,8 @@ const bunyan = require('bunyan');
 const express = require('express');
 const supertest = require('supertest');
 
-const httpResponseSerializer = require('../lib/objects/http-response').serializer;
-const serverMiddleware = require('../lib/middlewares').server;
+const httpResponseSerializer = require('../../lib/objects/http-response').serializer;
+const serverMiddleware = require('../../lib/middlewares').server;
 
 describe('HTTP response serializer (server point of view)', () => {
   var server = null;

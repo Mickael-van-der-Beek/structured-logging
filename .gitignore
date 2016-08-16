@@ -16,3 +16,6 @@ pids
 
 ### NPM dependency directory ###
 node_modules
+
+### test coverage data ###
+coverage

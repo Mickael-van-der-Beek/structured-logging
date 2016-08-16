@@ -1,11 +1,9 @@
-/* global global, describe, it */
-
 'use strict';
 
 const assert = require('assert');
 const requestErrors = require('request-promise/errors');
 
-const errorSerializer = require('../lib/objects/error').serializer;
+const errorSerializer = require('../../lib/objects/error').serializer;
 
 describe('Error serializer', () => {
   it('doesn\'t fail if missing parameters', () => {

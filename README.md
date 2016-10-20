@@ -32,11 +32,11 @@ Each object need to have these following files defines in it's folder:
 
 An ```Object``` containing custom [Bunyan](https://github.com/trentm/node-bunyan) serializer functions associated to their alias.
 
-Currently only ```req```, ```res```, ```err``` and ```context``` serializers are available.
+Currently only ```req```, ```res```, ```error``` and ```context``` serializers are available.
 
   * ```req```: should be used to log request objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
   * ```res```: should be used to log response objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
-  * ```err```: should be used to log error objects coming from the V8 (e.g: ```Error``` or ```TypeError``` instances) or libraries (e.g: ```StatusCodeError```)
+  * ```error```: should be used to log error objects coming from the V8 (e.g: ```Error``` or ```TypeError``` instances) or libraries (e.g: ```StatusCodeError```)
   * ```context```: should be used to log any app specific / contextual data.
 
 /!\ ```context``` data will be stored but not indexed ! /!\
@@ -57,7 +57,7 @@ const logger = bunyan.createLogger({
 
 logger.error({
   event: 'test-event',
-  err: new Error()
+  error: new Error()
 });
 ```
 

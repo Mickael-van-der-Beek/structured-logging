@@ -62,12 +62,6 @@ describe('HTTP request serializer (server point of view)', () => {
         const serializedHttpServerRequest = httpRequestSerializer(req);
 
         try {
-          assert.strictEqual(serializedHttpServerRequest.hasSerializationError, false);
-          assert.strictEqual(serializedHttpServerRequest.serializationError, null);
-
-          assert.strictEqual(serializedHttpServerRequest.hasValidationErrors, false);
-          assert.strictEqual(serializedHttpServerRequest.validationErrors, null);
-
           assert.strictEqual(serializedHttpServerRequest.isInternal, true);
 
           assert.strictEqual(serializedHttpServerRequest.method, method);

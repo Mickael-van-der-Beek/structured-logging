@@ -30,9 +30,6 @@ describe('Error serializer', () => {
 
     const serializedError = errorSerializer(error);
 
-    assert.strictEqual(serializedError.hasSerializationError, false);
-    assert.strictEqual(serializedError.serializationError, null);
-
     assert.strictEqual(serializedError.hasValidationErrors, true);
     assert.strictEqual(serializedError.validationErrors.length, 1);
   });
@@ -45,12 +42,6 @@ describe('Error serializer', () => {
 
     const serializedError = errorSerializer(error);
 
-    assert.strictEqual(serializedError.hasSerializationError, false);
-    assert.strictEqual(serializedError.serializationError, null);
-
-    assert.strictEqual(serializedError.hasValidationErrors, false);
-    assert.strictEqual(serializedError.validationErrors, null);
-
     assert.strictEqual(serializedError.name, errorType);
     assert.strictEqual(serializedError.message, errorMessage);
   });
@@ -61,12 +52,6 @@ describe('Error serializer', () => {
     const error = new (requestErrors.RequestError)(errorCause);
 
     const serializedError = errorSerializer(error);
-
-    assert.strictEqual(serializedError.hasSerializationError, false);
-    assert.strictEqual(serializedError.serializationError, null);
-
-    assert.strictEqual(serializedError.hasValidationErrors, false);
-    assert.strictEqual(serializedError.validationErrors, null);
 
     assert.strictEqual(serializedError.name, 'RequestError');
     assert.strictEqual(serializedError.message, errorCause);
@@ -80,12 +65,6 @@ describe('Error serializer', () => {
     const error = new (requestErrors.StatusCodeError)(statusCode, errorMessage);
 
     const serializedError = errorSerializer(error);
-
-    assert.strictEqual(serializedError.hasSerializationError, false);
-    assert.strictEqual(serializedError.serializationError, null);
-
-    assert.strictEqual(serializedError.hasValidationErrors, false);
-    assert.strictEqual(serializedError.validationErrors, null);
 
     assert.strictEqual(serializedError.name, 'StatusCodeError');
     assert.strictEqual(serializedError.message, `${statusCode} - "${errorMessage}"`);

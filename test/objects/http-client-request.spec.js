@@ -51,12 +51,6 @@ describe('HTTP request serializer (client point of view)', () => {
       const serializedHttpClientRequest = log.req;
 
       try {
-        assert.strictEqual(serializedHttpClientRequest.hasSerializationError, false);
-        assert.strictEqual(serializedHttpClientRequest.serializationError, null);
-
-        assert.strictEqual(serializedHttpClientRequest.hasValidationErrors, false);
-        assert.strictEqual(serializedHttpClientRequest.validationErrors, null);
-
         assert.strictEqual(serializedHttpClientRequest.method, method);
 
         assert.strictEqual(serializedHttpClientRequest.httpVersionMajor, 1);

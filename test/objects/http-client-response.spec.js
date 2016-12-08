@@ -73,12 +73,6 @@ describe('HTTP response serializer (client point of view)', () => {
           const serializedHttpClientResponse = httpResponseSerializer(res);
 
           try {
-            assert.strictEqual(serializedHttpClientResponse.hasSerializationError, false);
-            assert.strictEqual(serializedHttpClientResponse.serializationError, null);
-
-            assert.strictEqual(serializedHttpClientResponse.hasValidationErrors, false);
-            assert.strictEqual(serializedHttpClientResponse.validationErrors, null);
-
             assert.strictEqual(serializedHttpClientResponse.status, statusCode);
 
             assert.strictEqual(serializedHttpClientResponse.time > 0, true);

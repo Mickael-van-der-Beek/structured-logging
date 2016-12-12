@@ -1,6 +1,6 @@
 {
   "name": "structured-logging",
-  "version": "2.0.4",
+  "version": "2.0.7",
   "description": "Initialises a list of serializers and middlewares used to format logger input.",
   "keywords": [
     "buyan",

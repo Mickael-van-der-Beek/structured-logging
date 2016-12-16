@@ -14,14 +14,14 @@ $ npm install structured-logging
 
 In ```structured-logging```, objects are entities that you want to log.
 
-Currently only ```HTTP request```, ```HTTP response```, ```Error``` and ```Context``` objects are available.
+Currently only ```HTTP request```, ```HTTP response```, ```Error``` and ```State``` objects are available.
 
 Each object need to have these following files defines in it's folder:
 
   * ```OBJECT_NAME-serializer.js```, a function that maps / normalizes interesting properties from the input object to an output object
   * ```OBJECT_NAME-validator.js```, an [AJV](https://github.com/epoberezkin/ajv) validator instance whith a JSON schema validating your output object
   * ```OBJECT_NAME-mappings.js```, an ElasticSearch mapping schema used to specify how each field will be stored, tokenized, analyzed, indexed and searched
-  * ```OBJECT_NAME-dynamic-templates.js```: a list of ElasticSearch dynamic_templates which let you define mapping properties dynamicaly assing them to wildcard paths (e.g: ```context.*```)
+  * ```OBJECT_NAME-dynamic-templates.js```: a list of ElasticSearch dynamic_templates which let you define mapping properties dynamicaly assing them to wildcard paths (e.g: ```state.*```)
   * ```OBJECT_NAME-analyzers.js```: a list of custom ElasticSearch analyzer definitions in case the mappings file needs non-standard analyzers
   * ```OBJECT_NAME-tokenizers.js```: a list of custom ElasticSearch tokenizer definitions in case the mappings file needs non-standard tokenizers
 
@@ -32,14 +32,14 @@ Each object need to have these following files defines in it's folder:
 
 An ```Object``` containing custom [Bunyan](https://github.com/trentm/node-bunyan) serializer functions associated to their alias.
 
-Currently only ```req```, ```res```, ```error``` and ```context``` serializers are available.
+Currently only ```req```, ```res```, ```error``` and ```state``` serializers are available.
 
   * ```req```: should be used to log request objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
   * ```res```: should be used to log response objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
   * ```error```: should be used to log error objects coming from the V8 (e.g: ```Error``` or ```TypeError``` instances) or libraries (e.g: ```StatusCodeError```)
-  * ```context```: should be used to log any app specific / contextual data.
+  * ```state```: should be used to log any app specific / stateual data.
 
-/!\ ```context``` data will be stored but not indexed ! /!\
+/!\ ```state``` data will be stored but not indexed ! /!\
 
 ### Examples
 

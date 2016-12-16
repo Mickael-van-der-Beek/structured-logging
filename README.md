@@ -37,7 +37,7 @@ Currently only ```req```, ```res```, ```error``` and ```state``` serializers are
   * ```req```: should be used to log request objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
   * ```res```: should be used to log response objects coming from the server (e.g: ```express```) or the client (e.g: ```request``` or ```request-promise```)
   * ```error```: should be used to log error objects coming from the V8 (e.g: ```Error``` or ```TypeError``` instances) or libraries (e.g: ```StatusCodeError```)
-  * ```state```: should be used to log any app specific / stateual data.
+  * ```state```: should be used to log any app specific / contextual data.
 
 /!\ ```state``` data will be stored but not indexed ! /!\
 

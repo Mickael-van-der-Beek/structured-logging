@@ -2,12 +2,12 @@
 
 const assert = require('assert');
 
-const contextSerializer = require('../../lib/objects/context').serializer;
+const stateSerializer = require('../../lib/objects/state').serializer;
 
-describe('Context serializer', () => {
+describe('State serializer', () => {
   it('doesn\'t fail if missing parameters', () => {
     assert.doesNotThrow(() => {
-      contextSerializer(null);
+      stateSerializer(null);
     });
   });
 
@@ -17,7 +17,7 @@ describe('Context serializer', () => {
     const valueVal = 'value';
     const arrayVal1 = 'hello';
     const arrayVal2 = 'world';
-    const context = {
+    const state = {
       number: numberVal,
       string: stringVal,
       object: {
@@ -31,7 +31,7 @@ describe('Context serializer', () => {
       ]
     };
 
-    const serializedError = contextSerializer(context);
+    const serializedError = stateSerializer(state);
 
     assert.strictEqual(serializedError.number, numberVal);
     assert.strictEqual(serializedError.string, stringVal);

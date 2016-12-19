@@ -32,8 +32,10 @@ describe('HTTP request serializer (server point of view)', () => {
   });
 
   it('serializes server-side HTTP requests correctly', callback => {
-    const headerValue = 'This is a test referer';
-    const headerKey = 'referer'.toLowerCase();
+    const includedHeaderValue = 'This is a test included header';
+    const excludedHeaderValue = 'This is a test excluded header';
+    const includedHeaderKey = 'referer';
+    const excludedHeaderKey = 'excluded';
     const hostname = '::ffff:127.0.0.1';
     const pathname = '/pathname';
     const method = 'GET';
@@ -43,19 +45,6 @@ describe('HTTP request serializer (server point of view)', () => {
     const port = 10000;
 
     const app = express();
-
-    /*
-     * Note: This setting is important because some data is derived from non-trusted
-     * data sources like the `Host` header and `X-Forwarded-*` headers.
-     */
-    app.set(
-      'trust proxy',
-      [
-        'loopback',
-        'linklocal',
-        'uniquelocal'
-      ]
-    );
 
     app.use(
       (req, res, next) => {
@@ -75,7 +64,7 @@ describe('HTTP request serializer (server point of view)', () => {
           assert.strictEqual(serializedHttpServerRequest.remotePort > 0, true);
           assert.strictEqual(serializedHttpServerRequest.remotePort < Math.pow(2, 16), true);
 
-          assert.strictEqual(serializedHttpServerRequest.uri.protocol, 'http:');
+          assert.strictEqual(serializedHttpServerRequest.uri.protocol, 'http');
           assert.strictEqual(serializedHttpServerRequest.uri.hostname, `${hostname}`);
           assert.strictEqual(serializedHttpServerRequest.uri.port, port);
           assert.strictEqual(serializedHttpServerRequest.uri.pathname, pathname);
@@ -83,7 +72,9 @@ describe('HTTP request serializer (server point of view)', () => {
           assert.strictEqual(serializedHttpServerRequest.uri.hash, null);
 
           assert.strictEqual(serializedHttpServerRequest.headers.host, `[${hostname}]:${port}`);
-          assert.strictEqual(serializedHttpServerRequest.headers[headerKey], headerValue);
+          assert.strictEqual(serializedHttpServerRequest.headers[includedHeaderKey], includedHeaderValue);
+          assert.strictEqual(excludedHeaderKey in serializedHttpServerRequest.headers, false);
+          assert.strictEqual(req.headers[excludedHeaderKey], excludedHeaderValue);
         } catch (err) {
           return callback(err);
         }
@@ -106,7 +97,8 @@ describe('HTTP request serializer (server point of view)', () => {
       supertest(app)[method.toLowerCase()](pathname)
         .query(query)
         .set('Host', `[${hostname}]:${port}`)
-        .set(headerKey, headerValue)
+        .set(includedHeaderKey, includedHeaderValue)
+        .set(excludedHeaderKey, excludedHeaderValue)
         .end((err, res) => {
           if (err) {
             return callback(err);

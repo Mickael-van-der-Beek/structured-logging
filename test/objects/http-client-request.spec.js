@@ -34,9 +34,11 @@ describe('HTTP request serializer (client point of view)', () => {
     );
   });
 
-  it('serializes server-side HTTP requests correctly', callback => {
-    const headerValue = 'This is a test referer';
-    const headerKey = 'referer'.toLowerCase();
+  it('serializes client-side HTTP requests correctly', callback => {
+    const includedHeaderValue = 'This is a test included referer';
+    const excludedHeaderValue = 'This is a test excluded referer';
+    const includedHeaderKey = 'referer';
+    const excludedHeaderKey = 'foo';
     const hostname = '::ffff:127.0.0.1';
     const pathname = '/pathname';
     const method = 'GET';
@@ -56,14 +58,15 @@ describe('HTTP request serializer (client point of view)', () => {
         assert.strictEqual(serializedHttpClientRequest.httpVersionMajor, 1);
         assert.strictEqual(serializedHttpClientRequest.httpVersionMinor, 1);
 
-        assert.strictEqual(serializedHttpClientRequest.uri.protocol, 'http:');
+        assert.strictEqual(serializedHttpClientRequest.uri.protocol, 'http');
         assert.strictEqual(serializedHttpClientRequest.uri.hostname, `${hostname}`);
         assert.strictEqual(serializedHttpClientRequest.uri.port, port);
         assert.strictEqual(serializedHttpClientRequest.uri.pathname, pathname);
         assert.strictEqual(serializedHttpClientRequest.uri.query, querystring.stringify(query));
         assert.strictEqual(serializedHttpClientRequest.uri.hash, null);
 
-        assert.strictEqual(serializedHttpClientRequest.headers[headerKey], headerValue);
+        assert.strictEqual(serializedHttpClientRequest.headers[includedHeaderKey], includedHeaderValue);
+        assert.strictEqual(excludedHeaderKey in serializedHttpClientRequest.headers, false);
       } catch (err) {
         return callback(err);
       }
@@ -90,19 +93,6 @@ describe('HTTP request serializer (client point of view)', () => {
 
     const app = express();
 
-    /*
-     * Note: This setting is important because some data is derived from non-trusted
-     * data sources like the `Host` header and `X-Forwarded-*` headers.
-     */
-    app.set(
-      'trust proxy',
-      [
-        'loopback',
-        'linklocal',
-        'uniquelocal'
-      ]
-    );
-
     app[method.toLowerCase()](pathname, (req, res) => {
       res
         .status(200)
@@ -126,17 +116,14 @@ describe('HTTP request serializer (client point of view)', () => {
         method,
 
         headers: {
-          [headerKey]: headerValue
+          [includedHeaderKey]: includedHeaderValue,
+          [excludedHeaderKey]: excludedHeaderValue
         },
 
         resolveWithFullResponse: true
       })
-      .then(
-        clientMiddleware(logger, {})
-      )
-      .catch(
-        err => callback(err)
-      );
+      .then(clientMiddleware(logger, {}))
+      .catch(err => callback(err));
     });
   });
 });

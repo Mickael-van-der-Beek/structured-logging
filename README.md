@@ -117,8 +117,7 @@ app.use(
     logger,
     {
 		event: 'test-event'
-	}
-  )
+	})
 );
 
 app.get('/', function (req, res) {
@@ -144,9 +143,7 @@ requestPromise({
   // Note: This setting sets the res.elapsedTime property in request
   time: true
 })
-  .then(
-    res => structuredLogging.middlewares.client(res)
-  );
+  .then(res => structuredLogging.middlewares.client(res));
 ```
 
 ## Elasticsearch mappings API

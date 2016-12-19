@@ -31,9 +31,11 @@ describe('HTTP response serializer (client point of view)', () => {
     );
   });
 
-  it('serializes server-side HTTP responses correctly', callback => {
-    const headerValue = 'This is a test server';
-    const headerKey = 'server'.toLowerCase();
+  it('serializes client-side HTTP responses correctly', callback => {
+    const includedHeaderValue = 'This is a test included header';
+    const excludedHeaderValue = 'This is a test excluded header';
+    const includedHeaderKey = 'referer';
+    const excludedHeaderKey = 'excluded';
     const statusCode = 204;
     const hostname = '::ffff:127.0.0.1';
     const pathname = '/pathname';
@@ -44,7 +46,8 @@ describe('HTTP response serializer (client point of view)', () => {
 
     app[method.toLowerCase()](pathname, (req, res) => {
       res
-        .set(headerKey, headerValue)
+        .set(includedHeaderKey, includedHeaderValue)
+        .set(excludedHeaderKey, excludedHeaderValue)
         .status(statusCode)
         .end();
     });
@@ -78,7 +81,8 @@ describe('HTTP response serializer (client point of view)', () => {
             assert.strictEqual(serializedHttpClientResponse.time > 0, true);
             assert.strictEqual(serializedHttpClientResponse.time < 1000, true);
 
-            assert.strictEqual(serializedHttpClientResponse.headers[headerKey], headerValue);
+            assert.strictEqual(serializedHttpClientResponse.headers[includedHeaderKey], includedHeaderValue);
+            assert.strictEqual(excludedHeaderKey in serializedHttpClientResponse.headers, false);
           } catch (err) {
             return callback(err);
           }
@@ -86,9 +90,7 @@ describe('HTTP response serializer (client point of view)', () => {
           callback(null);
         }
       )
-      .catch(
-        err => callback(err)
-      );
+      .catch(err => callback(err));
     });
   });
 });

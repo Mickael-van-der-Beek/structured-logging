@@ -31,10 +31,10 @@ describe('HTTP response serializer (client point of view)', () => {
     );
   });
 
-  it('serializes client-side HTTP responses correctly', callback => {
+  it.only('serializes client-side HTTP responses correctly', callback => {
     const includedHeaderValue = 'This is a test included header';
     const excludedHeaderValue = 'This is a test excluded header';
-    const includedHeaderKey = 'referer';
+    const includedHeaderKey = 'server';
     const excludedHeaderKey = 'excluded';
     const statusCode = 204;
     const hostname = '::ffff:127.0.0.1';

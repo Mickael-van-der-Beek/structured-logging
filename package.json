@@ -1,6 +1,6 @@
 {
   "name": "structured-logging",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Initialises a list of serializers and middlewares used to format logger input.",
   "keywords": [
     "buyan",
@@ -10,7 +10,7 @@
   ],
   "main": "lib/index.js",
   "engines": {
-    "node": "^4.2.6"
+    "node": ">=4.2.6"
   },
   "scripts": {
     "ci": "npm run security && npm run lint && npm run coverage",

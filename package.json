@@ -1,43 +1,45 @@
 {
   "name": "structured-logging",
-  "version": "2.0.16",
-  "description": "Initialises a list of serializers and middlewares used to format logger input.",
+  "version": "3.0.0",
+  "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
-    "buyan",
+    "bunyan",
     "logger",
     "logging",
+    "pruning",
+    "schema",
     "serializer"
   ],
   "main": "lib/index.js",
   "engines": {
-    "node": ">=4.2.6"
+    "node": ">=6.1.0"
   },
   "scripts": {
-    "ci": "npm run lint && npm run coverage",
-    "coverage": "nyc npm run test",
+    "updates": "npm-check --skip-unused",
+    "audit": "retire --path .",
+    "coverage": "nyc npm run unit",
     "lint": "semistandard --verbose | snazzy",
-    "start": "node ./server.js",
-    "test": "mocha --recursive ./test/**/*.spec.js"
+    "mutate": "stryker run stryker.conf.js",
+    "test": "npm run updates && npm run audit && npm run lint && npm run coverage && npm run mutate",
+    "unit": "mocha --recursive ./test/**/*.spec.js"
   },
   "dependencies": {
-    "ajv": "^4.11.3",
-    "bunyan": "^1.8.1",
+    "ajv": "^4.11.5",
     "dot-object": "^1.5.4",
-    "extend": "^3.0.0",
-    "ip": "^1.1.3",
-    "proxy-addr": "^1.1.3",
-    "response-time": "^2.3.1",
-    "urijs": "^1.18.8",
+    "response-time": "^2.3.2",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "express": "^4.15.0",
+    "elasticsearch": "^12.1.3",
     "mocha": "^3.2.0",
+    "npm-check": "^5.4.0",
     "nyc": "^10.1.2",
-    "semistandard": "^9.2.1",
+    "retire": "^1.2.12",
+    "semistandard": "^10.0.0",
     "snazzy": "^6.0.0",
-    "supertest": "^3.0.0",
-    "request-promise": "^4.0.2"
+    "stryker": "^0.5.9",
+    "stryker-api": "^0.4.2",
+    "stryker-mocha-runner": "^0.2.0"
   },
   "repository": {
     "type": "git",
@@ -47,10 +49,5 @@
   "bugs": {
     "url": "https://github.com/Woorank/structured-logging/issues"
   },
-  "homepage": "https://github.com/Woorank/structured-logging",
-  "semistandard": {
-    "env": [
-      "mocha"
-    ]
-  }
+  "homepage": "https://github.com/Woorank/structured-logging"
 }

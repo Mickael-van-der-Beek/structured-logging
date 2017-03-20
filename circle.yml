@@ -1,3 +1,16 @@
 machine:
-  node:
-    version: 4.2.6
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  environment:
+    CI_BUILD_NUMBER: $CIRCLE_BUILD_NUM
+  services:
+    - docker
+
+dependencies:
+  override:
+    - sudo pip install -U docker-compose==1.6.0
+    - docker-compose build
+
+test:
+  override:
+    - docker-compose run node npm test

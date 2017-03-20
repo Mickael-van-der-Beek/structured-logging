@@ -1,0 +1,17 @@
+node:
+  build: .
+  command: npm run unit
+  environment:
+    ELASTICSEARCH_HOST: elasticsearch_test:9200
+  links:
+    - elasticsearch_test
+  volumes:
+    - ./package.json:/opt/app/package.json
+    - ./stryker.conf.js:/opt/app/stryker.conf.js
+    - ./lib:/opt/app/lib
+    - ./test:/opt/app/test
+
+elasticsearch_test:
+  image: elasticsearch
+  expose:
+    - "9200"

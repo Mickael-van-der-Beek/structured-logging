@@ -1,6 +1,6 @@
 {
   "name": "structured-logging",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
     "bunyan",

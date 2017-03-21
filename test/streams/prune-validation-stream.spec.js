@@ -145,6 +145,10 @@ describe('PruneValidationStream', () => {
 
     [
       [
+        '{"name":"test","foo":"bar"}',
+        '{"name":"test","test":{"foo":"bar"}}'
+      ],
+      [
         { name: 'test', foo: 'bar' },
         '{"name":"test","test":{"foo":"bar"}}'
       ],

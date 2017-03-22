@@ -146,23 +146,23 @@ describe('PruneValidationStream', () => {
     [
       [
         '{"name":"test","foo":"bar"}',
-        '{"name":"test","test":{"foo":"bar"}}'
+        '{"name":"test","test":{"foo":"bar"}}\n'
       ],
       [
         { name: 'test', foo: 'bar' },
-        '{"name":"test","test":{"foo":"bar"}}'
+        '{"name":"test","test":{"foo":"bar"}}\n'
       ],
       [
         { name: 'test', foo: 'bar' },
-        '{"name":"test","test":{"foo":"bar"}}'
+        '{"name":"test","test":{"foo":"bar"}}\n'
       ],
       [
         { name: '1test', foo: 'bar' },
-        '{"name":"1test","xtest":{"foo":"bar"}}'
+        '{"name":"1test","xtest":{"foo":"bar"}}\n'
       ],
       [
         { name: 'test', pid: 'foo' },
-        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)},"test":{}}`
+        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)},"test":{}}\n`
       ]
     ].forEach(row => {
       const input = row[0];
@@ -173,7 +173,7 @@ describe('PruneValidationStream', () => {
       instance.stream = {
         write: output => {
           assert.strictEqual(output, expected);
-          assert.strictEqual(JSON.stringify(JSON.parse(output)), output);
+          assert.strictEqual(JSON.stringify(JSON.parse(output.slice(0, -1))), output.slice(0, -1));
 
           return 42;
         }

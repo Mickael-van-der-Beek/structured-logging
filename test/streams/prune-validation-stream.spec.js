@@ -107,7 +107,7 @@ describe('PruneValidationStream', () => {
     [
       [
         [{ name: {}, foo: {} }, () => true, { name: 'test', foo: 'bar' }],
-        '{"name":"test","foo":"bar","test":{}}'
+        '{"name":"test","foo":"bar"}'
       ],
       [
         [{ name: {} }, () => true, { name: 'test', foo: 'bar' }],
@@ -119,7 +119,7 @@ describe('PruneValidationStream', () => {
       ],
       [
         [{ name: {}, foo: {} }, (validator = () => false, validator.errors = validationErrors, validator), { name: 'test', foo: 42 }],
-        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)},"test":{}}`
+        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)}}`
       ]
     ].forEach(row => {
       const input = row[0];
@@ -162,7 +162,7 @@ describe('PruneValidationStream', () => {
       ],
       [
         { name: 'test', pid: 'foo' },
-        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)},"test":{}}\n`
+        `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)}}\n`
       ]
     ].forEach(row => {
       const input = row[0];

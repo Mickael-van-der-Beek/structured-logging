@@ -10,7 +10,8 @@ describe('PruneValidationStream', () => {
   it('constructor', () => {
     [
       [new PruneValidationStream(), { stream: process.stdout }],
-      [new PruneValidationStream('foo'), { stream: process.stdout }]
+      [new PruneValidationStream(null), { stream: process.stdout }],
+      [new PruneValidationStream({ stream: process.stderr }), { stream: process.stderr }]
     ].forEach(row => {
       const output = row[0];
       const expected = row[1];
@@ -183,5 +184,16 @@ describe('PruneValidationStream', () => {
 
       assert.strictEqual(output, 42);
     });
+  });
+  it('Bunyan time key serialized to JSON string', () => {
+    const date = new Date();
+    const input = [{ name: {}, time: {} }, () => true, { name: 'test', time: date }];
+    const expected = `{"name":"test","time":"${date.toJSON()}"}`;
+
+    const instance = new PruneValidationStream();
+    const output = instance.serialize.apply(instance, input);
+
+    assert.strictEqual(output, expected);
+    assert.strictEqual(JSON.stringify(JSON.parse(output)), output);
   });
 });

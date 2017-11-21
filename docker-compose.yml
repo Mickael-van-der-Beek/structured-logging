@@ -7,7 +7,6 @@ node:
     - elasticsearch_test
   volumes:
     - ./package.json:/opt/app/package.json
-    - ./stryker.conf.js:/opt/app/stryker.conf.js
     - ./lib:/opt/app/lib
     - ./test:/opt/app/test
 

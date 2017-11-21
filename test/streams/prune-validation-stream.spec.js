@@ -105,6 +105,9 @@ describe('PruneValidationStream', () => {
     }];
     let validator = null;
 
+    const circularObject = { name: 'test' };
+    circularObject.test = circularObject;
+
     [
       [
         [{ name: {}, foo: {} }, () => true, { name: 'test', foo: 'bar' }],
@@ -121,6 +124,10 @@ describe('PruneValidationStream', () => {
       [
         [{ name: {}, foo: {} }, (validator = () => false, validator.errors = validationErrors, validator), { name: 'test', foo: 42 }],
         `{"name":"test","hasValidationErrors":true,"validationErrors":${JSON.stringify(validationErrors)}}`
+      ],
+      [
+        [{ name: {} }, () => true, circularObject],
+        '{"name":"test","test":{"test":"[Circular ~]"}}'
       ]
     ].forEach(row => {
       const input = row[0];

@@ -12,7 +12,6 @@ COPY ./package.json /opt/app/package.json
 
 RUN npm install --quiet
 
-COPY ./stryker.conf.js /opt/app/stryker.conf.js
 COPY ./lib /opt/app/lib
 COPY ./test /opt/app/test
 

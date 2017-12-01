@@ -1,6 +1,6 @@
 {
   "name": "structured-logging",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
     "bunyan",
@@ -19,6 +19,7 @@
     "coverage": "nyc npm run unit",
     "lint": "semistandard --verbose | snazzy",
     "test": "npm run audit && npm run lint && npm run coverage",
+    "version": "echo $npm_package_version",
     "unit": "mocha --recursive ./test/**/*.spec.js"
   },
   "dependencies": {

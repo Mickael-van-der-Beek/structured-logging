@@ -1,6 +1,6 @@
-# structured-logging [![Build Status][circle-image]][circle-url]
+# structured-logging-next [![Build Status][circle-image]][circle-url]
 
-The ```structured-logging``` NPM module provides two features:
+The ```structured-logging-next``` NPM module provides two features:
   - a list of bunyan compatible serializers that are pruned and validated against a JSON schema
   - an ElasticSearch mappings generator that fits the outputted data
 
@@ -12,7 +12,7 @@ $ npm install structured-logging
 
 ## Object definition exlanation
 
-In ```structured-logging```, objects are entities that you want to log.
+In ```structured-logging-next```, objects are entities that you want to log.
 
 Currently only ```HTTP request```, ```HTTP response```, ```Error``` and ```State``` objects are available.
 

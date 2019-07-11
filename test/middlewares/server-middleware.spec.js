@@ -35,7 +35,7 @@ describe('ServerMiddleware', () => {
     const port = 10000;
 
     const logger = bunyan.createLogger({
-      name: 'structured-logging',
+      name: 'structured-logging-next',
       serializers: {
         req: reqSerializer
       },
@@ -104,7 +104,7 @@ describe('ServerMiddleware', () => {
     const port = 10000;
 
     const logger = bunyan.createLogger({
-      name: 'structured-logging',
+      name: 'structured-logging-next',
       serializers: {
         res: resSerializer
       },

@@ -1,12 +1,10 @@
 FROM node:7.7.1-alpine
 
-RUN addgroup woorank
-RUN adduser -D -G woorank -g "Woorank" -s /bin/sh woorank
-RUN mkdir -p /opt/app
-RUN chown woorank:woorank /opt/app
+RUN addgroup sl \
+	&& adduser -S -D -h /opt/app -s /bin/false sl
 
 WORKDIR /opt/app
-USER woorank
+USER sl
 
 COPY ./package.json /opt/app/package.json
 

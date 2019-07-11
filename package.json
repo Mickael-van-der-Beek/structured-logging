@@ -1,6 +1,6 @@
 {
   "name": "structured-logging-next",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
     "bunyan",
@@ -42,11 +42,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Woorank/structured-logging.git"
+    "url": "git+https://github.com/Mickael-van-der-Beek/structured-logging-next.git"
   },
   "author": "Mickael van der Beek (https://github.com/Mickael-van-der-Beek)",
   "bugs": {
-    "url": "https://github.com/Woorank/structured-logging/issues"
+    "url": "https://github.com/Mickael-van-der-Beek/structured-logging-next/issues"
   },
-  "homepage": "https://github.com/Woorank/structured-logging"
+  "homepage": "https://github.com/Mickael-van-der-Beek/structured-logging-next"
 }

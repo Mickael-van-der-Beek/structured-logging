@@ -7,7 +7,7 @@ The ```structured-logging-next``` NPM module provides two features:
 ## Installation
 
 ```shell
-$ npm install structured-logging
+$ npm install structured-logging-next
 ```
 
 ## Object definition exlanation
@@ -46,7 +46,7 @@ Currently only ```req```, ```res```, ```error``` and ```state``` serializers are
 Simple logger with custom serializers example:
 
 ```javascript
-const structuredLogging = require('structured-logging');
+const structuredLogging = require('structured-logging-next');
 const bunyan = require('bunyan');
 const pkg = require('../pkg');
 
@@ -101,7 +101,7 @@ The child-logger instance will be attached to each request and accessible on the
 Express.js in version v4.x, middleware example:
 
 ```javascript
-const structuredLogging = require('structured-logging');
+const structuredLogging = require('structured-logging-next');
 const express = require('express');
 const bunyan = require('bunyan');
 const pkg = require('../pkg');
@@ -130,7 +130,7 @@ app.listen(3000);
 Request-promise, middleware example:
 
 ```javascript
-const structuredLogging = require('structured-logging');
+const structuredLogging = require('structured-logging-next');
 const requestPromise = require('request-promise');
 const bunyan = require('bunyan');
 const pkg = require('../pkg');
@@ -159,15 +159,15 @@ Four arguments have to be passed:
 
   * ```basePath```, a ```String```, the prefix to which the outputed data will be appended to (defaults to ```'app'```)
   * ```type```, a ```String```, the ElasticSearch type to specify the mapping properties for (defaults to ```'__default__'```)
-  * ```serializers```, an ```Object```, the ```structured-logging``` serializers mapped to the bunyan aliases as in your app
-  * ```objects```, an ```Object```, the ```structured-logging``` objects.property
+  * ```serializers```, an ```Object```, the ```structured-logging-next``` serializers mapped to the bunyan aliases as in your app
+  * ```objects```, an ```Object```, the ```structured-logging-next``` objects.property
 
 ### Examples
 
 Elasticsearch, mappings generation example:
 
 ```javascript
-const structuredLogging = require('structured-logging');
+const structuredLogging = require('structured-logging-next');
 const util = require('util');
 
 console.log(
@@ -184,5 +184,5 @@ console.log(
 );
 ```
 
-[circle-image]: https://circleci.com/gh/Woorank/structured-logging.svg
-[circle-url]: https://circleci.com/gh/Woorank/structured-logging
+[circle-image]: https://circleci.com/gh/Mickael-van-der-Beek/structured-logging-next.svg
+[circle-url]: https://circleci.com/gh/Mickael-van-der-Beek/structured-logging-next

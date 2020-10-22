@@ -16,7 +16,7 @@ const index = 'foo';
 const type = 'bar';
 const base = 'app';
 
-describe('errMappingSchema', () => {
+xdescribe('errMappingSchema', () => {
   before('create index', () => {
     return elasticsearch.indices.create({ index, body: mapper(base, type) });
   });

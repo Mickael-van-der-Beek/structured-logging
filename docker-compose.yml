@@ -1,16 +1,19 @@
-node:
-  build: .
-  command: npm run unit
-  environment:
-    ELASTICSEARCH_HOST: elasticsearch_test:9200
-  links:
-    - elasticsearch_test
-  volumes:
-    - ./package.json:/opt/app/package.json
-    - ./lib:/opt/app/lib
-    - ./test:/opt/app/test
+version: '2'
 
-elasticsearch_test:
-  image: elasticsearch
-  expose:
-    - "9200"
+services:
+  node:
+    build: .
+    command: npm run unit
+    environment:
+      ELASTICSEARCH_HOST: elasticsearch_test:9200
+    depends_on:
+      - elasticsearch_test
+    volumes:
+      - ./package.json:/opt/app/package.json
+      - ./lib:/opt/app/lib
+      - ./test:/opt/app/test
+
+  elasticsearch_test:
+    image: elasticsearch:7.9.2
+    ports:
+      - '9200:9200'

@@ -1,6 +1,6 @@
 {
   "name": "structured-logging-next",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
     "bunyan",
@@ -25,6 +25,7 @@
   "dependencies": {
     "ajv": "^5.4.0",
     "bunyan": "^1.8.9",
+    "deepcopy": "^2.1.0",
     "dot-object": "^1.5.4",
     "json-stringify-safe": "^5.0.1",
     "response-time": "^2.3.2",

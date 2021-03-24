@@ -1,6 +1,6 @@
 {
   "name": "structured-logging-next",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Bunyan stream used to format logger input based on a JSON schema.",
   "keywords": [
     "bunyan",
